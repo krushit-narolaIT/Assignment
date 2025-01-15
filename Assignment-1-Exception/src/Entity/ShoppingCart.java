@@ -86,5 +86,8 @@ public class ShoppingCart {
         System.out.println("GST \t\t :: \t" + GST);
         System.out.println("----------------------------");
         System.out.println("Total Amount :: " + (totalPrice + GST));
+
+        //clear the cart
+        orderedItems.clear();
     }
 }
