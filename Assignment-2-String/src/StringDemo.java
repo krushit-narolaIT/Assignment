@@ -74,5 +74,15 @@ public class StringDemo {
             System.out.print(c + " ");
         }
         System.out.println();
+
+        System.out.println("==================================");
+
+        String strBlock = """
+            Hello,
+                    My Name is Krushit.
+                        How are you??
+                            i am fine...!!
+                """;
+        System.out.println("String Block :: \n" + strBlock);
     }
 }
