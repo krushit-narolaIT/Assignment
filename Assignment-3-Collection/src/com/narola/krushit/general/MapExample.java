@@ -1,3 +1,5 @@
+package com.narola.krushit.general;
+
 import java.util.*;
 
 public class MapExample {
