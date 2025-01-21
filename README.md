@@ -1,24 +1,9 @@
-# ShopNow
+# Assigment
 
 ## Overview
-
-This project models a basic online shopping system using Object-Oriented Programming (OOP) principles, exception handling, and method overriding. It includes key components like `Product`, `Customer`, `Order`, `ShoppingCart`, and custom exception handling.
+This repository involve all assignment task
 
 ### Objectives:
-1. Implement OOP principles: **Encapsulation**, **Inheritance**, **Abstraction**, and **Polymorphism**.
-2. Implement **exception handling** for common error scenarios (e.g., invalid order quantities, stock unavailability).
-3. Override essential methods from the **Object class**: `toString()`, `equals()`, and `hashCode()`.
-
----
-
-## Project Structure
-
-### 1. **Product Class**
-### 2. **Customer Class**
-### 3. **Order Class**
-### 4. **ShoppingCart Class**
-### 5. **Exception Classes**
-
-## For detailed documentation
-```bash
-Assignment-1-Exception/docs/index.html
+1. Assignment 1: Exception Handling
+2. Assignment 2: String, StringBuffer & StringBuilder
+3. Assignment 3: Collection
