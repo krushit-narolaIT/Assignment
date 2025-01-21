@@ -14,13 +14,16 @@ public class SetAssignment {
         System.out.println("================= TreeSet Operations =================");
         setAssignment.treeSet();
 
+        System.out.println("=========   Assignment 2     =============");
         String str = "Java is good, Java is high level programming language";
         setAssignment.removeDuplicateWord(str);
 
+        System.out.println("=========   Assignment 3     =============");
         Set<String> setAsia = Set.of("India", "Afghanistan", "Russia", "Turkey");
         Set<String> setEurope = Set.of("Russia", "Turkey", "Germany", "Switzerland");
         setAssignment.setOperations(setAsia, setEurope);
 
+        System.out.println("=========   Assignment 4     =============");
         List<Integer> integerList = List.of(1, 5, 10, 3, 45, 8);
         setAssignment.sortUsingTreeSet(integerList);
     }
@@ -182,6 +185,7 @@ public class SetAssignment {
      * @param set2
      */
     public void setOperations(Set<String> set1, Set<String> set2){
+        //set1.addAll(set2);
         Set<String> unionSet = new HashSet<>(set1);
         unionSet.addAll(set2);
         System.out.println("\nUnion Set :: " + unionSet);

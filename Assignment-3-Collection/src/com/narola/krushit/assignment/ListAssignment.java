@@ -6,12 +6,35 @@ public class ListAssignment {
     public static void main(String[] args) {
         ListAssignment listAssignment = new ListAssignment();
         System.out.println("==========  ArrayList Operations  ==========");
-        //listAssignment.arrayListOps();
+        listAssignment.arrayListOps();
 
         System.out.println("==========  LinkedList Operations  ==========");
         listAssignment.linkedListOps();
+
+        System.out.println("==========   Assignment 2     ==============");
+        listAssignment.sortingAndSerching();
+
+        System.out.println("==========   Assignment 3     ==============");
+        listAssignment.handlingDuplicates();
+
+        System.out.println("==========   Assignment 4     ==============");
+        listAssignment.coversion();
     }
 
+    /** Assignment 1.1: Basic List Operations
+     * 1. Create a program to:
+     * ○ Add elements to a List.
+     * ○ Retrieve an element by index.
+     * ○ Iterate over the List using:
+     *   ■ for loop
+     *   ■ Enhanced for loop
+     *   ■ Iterator
+     *   ■ Stream
+     * ○ Remove elements by:
+     *   ■ Index
+     *   ■ Value
+     * 2. Use ArrayList for the above tasks
+     */
     public void arrayListOps() {
         //assignment 1
         List<String> arrayList = new ArrayList<>();
@@ -48,6 +71,8 @@ public class ListAssignment {
             System.out.print(" " + str);
 
         //Iterator
+        //hasnext() check is next element available in collection
+        //next() increse counter
         System.out.print("\nUsing Iterator :: ");
         Iterator<String> itr = arrayList.iterator();
         while (itr.hasNext()) {
@@ -62,73 +87,31 @@ public class ListAssignment {
         //■ Index
         //■ Value
 
-        //by index
+        //remove by index
         System.out.println("Remove element at index 3");
         arrayList.remove(1);
         System.out.println("After removing 1st index from ArrayList: " + arrayList);
 
+        //remove by name
         System.out.println("Remove element USA");
         arrayList.remove("USA");
         System.out.println("After removing USA from ArrayList: " + arrayList);
-
-        /*Assignment 2 : : Sorting and Searching
-            ● Write a program to:
-                ○ Sort a list of student names using Collections.sort.
-                ○ Search for a name using Collections.binarySearch.
-         */
-
-        //Sort a list of student names using Collections.sort.
-        Student s1 = new Student(1, "Krushit");
-        Student s2 = new Student(2, "Sujal");
-
-        List<Student> studentList = new ArrayList<>();
-        Collections.sort(studentList, (a, b) -> a.name.compareTo(b.name));
-
-        System.out.println("Sorted List :: " + studentList);
-
-        //Search for a name using Collections.binarySearch.
-
-        //Collections.binarySearch(studentList, "Sujal");
-
-        /* Assignment 3: Handling Duplicates
-            ● Write a program to count the frequency of duplicate elements in a List using
-                Collections.frequency.
-         */
-
-        arrayList.add("India");
-        arrayList.add("USA");
-
-        int countIndia = Collections.frequency(arrayList, "India");
-        System.out.println("Frequency of India in arraylist:: " + countIndia);
-
-        /* Assignment 4: Convert List to Array and Vice Versa
-            ● Convert an array of integers into a List and back to an array. Print the results
-         */
-
-        // Convert List to Array and Vice Versa
-        System.out.println("=== Converting Arraylist to Array ===");
-        Object[] strArr = arrayList.toArray();
-        String[] strArr1 = arrayList.toArray(new String[arrayList.size()]);
-        for (int i = 0; i < strArr.length; i++) {
-            System.out.print(" " + strArr[i]);
-        }
-
-        List<String> list = List.of(strArr1);
-        System.out.println("Array from Arraylist :: " + list);
-
-        // Convert an array of integers into a List and back to an array. Print the results
-        Integer[] intArr = {1, 2, 3, 4, 5};
-        List<Integer> integerList = List.of(intArr);
-
-        System.out.println("Integer List :: " + integerList);
-
-        Object[] intArr2 = integerList.toArray();
-        System.out.print("Integer array2 ::");
-        for (Object integer : intArr2) {
-            System.out.print(" " + intArr);
-        }
     }
 
+    /** Assignment 1.2: Basic List Operations
+     * 1. Create a program to:
+     * ○ Add elements to a List.
+     * ○ Retrieve an element by index.
+     * ○ Iterate over the List using:
+     *   ■ for loop
+     *   ■ Enhanced for loop
+     *   ■ Iterator
+     *   ■ Stream
+     * ○ Remove elements by:
+     *   ■ Index
+     *   ■ Value
+     * 2. Use LinkedList for the above tasks
+     */
     public void linkedListOps() {
         // Assignment 1: Basic LinkedList Operations
         List<String> linkedList = new LinkedList<>();
@@ -190,7 +173,15 @@ public class ListAssignment {
         System.out.println("Remove element USA");
         linkedList.remove("USA");
         System.out.println("After removing USA from LinkedList: " + linkedList);
+    }
 
+    /**
+     * Assignment 2: Sorting and Searching
+     * ● Write a program to:
+     * ○ Sort a list of student names using Collections.sort.
+     * ○ Search for a name using Collections.binarySearch.
+     */
+    public void sortingAndSerching(){
         // Assignment 2: Sorting and Searching
         Student s1 = new Student(1, "Krushit");
         Student s2 = new Student(2, "Sujal");
@@ -208,15 +199,39 @@ public class ListAssignment {
         // Uncommenting below would need Comparable<Student> implementation in Student
         // int index = Collections.binarySearch(studentList, s2, (a, b) -> a.name.compareTo(b.name));
         // System.out.println("Found Sujal at index: " + index);
+    }
 
-        // Assignment 3: Handling Duplicates
-        linkedList.add("India");
+    /**
+     * Assignment 3: Handling Duplicates
+     * ● Write a program to count the frequency of duplicate elements in a List using
+     * Collections.frequency.
+     */
+    public void handlingDuplicates(){
+        List<String> arrayList = new ArrayList<>();
+
+        arrayList.add("USA");
+        arrayList.add("Canada");
+        arrayList.add("Germany");
+        arrayList.add("USA");
+        arrayList.add("India");
+        arrayList.add("USA");
+
+        int countIndia = Collections.frequency(arrayList, "USA");
+        System.out.println("Frequency of India in arraylist:: " + countIndia);
+    }
+
+    /**
+     * Assignment 4: Convert List to Array and Vice Versa
+     * ● Convert an array of integers into a List and back to an array. Print the results
+     */
+    public void coversion(){
+        List<String> linkedList = new LinkedList<>();
+        // Add elements to a List.
         linkedList.add("USA");
-
-        int countIndia = Collections.frequency(linkedList, "India");
-        System.out.println("Frequency of India in LinkedList:: " + countIndia);
-
-        // Assignment 4: Convert List to Array and Vice Versa
+        linkedList.add("Canada");
+        linkedList.add("Germany");
+        linkedList.add("USA");
+        System.out.println("LinkedList: " + linkedList);
         System.out.println("=== Converting LinkedList to Array ===");
         Object[] strArr = linkedList.toArray();
         String[] strArr1 = linkedList.toArray(new String[linkedList.size()]);
@@ -239,4 +254,5 @@ public class ListAssignment {
             System.out.print(" " + integer);
         }
     }
+
 }

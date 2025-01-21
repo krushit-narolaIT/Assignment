@@ -14,18 +14,21 @@ public class MapAssignment {
         hm.put("Belgium", "Brussels");
         hm.put("Germany", "Berlin");
 
-
+        System.out.println("=========   Assignment 1   =========");
         MapAssignment mapAssignment = new MapAssignment();
         mapAssignment.hashMapOps(hm);
 
+        System.out.println("=========   Assignment 2   =========");
         String string = "Java is Good Java is high level programming language it is easy to learn";
         mapAssignment.countFrequency(string);
 
+        System.out.println("=========   Assignment 3   =========");
         List<Student> studentList = List.of(new Student(3, "Krushit"),
                 new Student(2, "Sujal"),
                 new Student(1, "Ami"));
         mapAssignment.sortingWithTreemap(studentList);
 
+        System.out.println("=========   Assignment 4   =========");
         mapAssignment.convertMapToList(hm);
     }
 
@@ -134,5 +137,9 @@ public class MapAssignment {
 
         System.out.println("Country List :: " + country);
         System.out.println("Capital List :: " + capital);
+    }
+
+    public void comparePerformance(HashMap hashMap){
+
     }
 }
