@@ -197,8 +197,8 @@ public class ListAssignment {
 
         // Search for a name using Collections.binarySearch.
         // Uncommenting below would need Comparable<Student> implementation in Student
-        // int index = Collections.binarySearch(studentList, s2, (a, b) -> a.name.compareTo(b.name));
-        // System.out.println("Found Sujal at index: " + index);
+         int index = Collections.binarySearch(studentList, s2, (a, b) -> a.name.compareTo(b.name));
+         System.out.println("Found Sujal at index: " + index);
     }
 
     /**
@@ -254,5 +254,4 @@ public class ListAssignment {
             System.out.print(" " + integer);
         }
     }
-
 }

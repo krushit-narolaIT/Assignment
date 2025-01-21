@@ -14,13 +14,16 @@ public class Combine {
          */
 
         List<String> stringList = new ArrayList<>();
-        stringList.add("Krushit");
-        stringList.add("Sujal");
-        stringList.add("Vinay");
-        stringList.add("Vikas");
-        stringList.add("Arpan");
-        stringList.add("Vinay");
-        stringList.add("Sujal");
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("How many users you want to add ::");
+        int n = sc.nextInt();
+
+        for(int i=0;i<n;i++){
+            System.out.print("\nEnter " + (i+1) + " User :: ");
+            String user = sc.next();
+            stringList.add(user);
+        }
 
         System.out.println("List :: " + stringList);
 
