@@ -1,11 +1,15 @@
 package com.narola.krushit;
 
+import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class FunctionalInterfaceDemo2 {
     public static void main(String[] args) {
+        System.out.println("===============|| Consumer ||================");
         Consumer<String> consumer = s -> System.out.println("Hello, My name is " + s);
         consumer.accept("Krushit");
 
@@ -53,16 +57,48 @@ public class FunctionalInterfaceDemo2 {
         } else {
             System.out.println("Wrong input added");
         }
-
-        //chaining
         Predicate<Integer> firstCall = num -> num > 10;
 
-        // Creating predicate
         Predicate<Integer> secondCall = num -> num < 20;
         boolean result = firstCall.and(secondCall).test(15);
         System.out.println(result);
 
-        boolean result2 = firstCall.and(secondCall).negate().test(15);
-        System.out.println(result2);
+        System.out.println("===============|| Supplier ||================");
+        Supplier<List<String>> getStateList = new Supplier<List<String>>() {
+            @Override
+            public List<String> get() {
+                List<String> stateList = List.of("Gujarat", "Maharastra", "Rajasthan", "UP", "Odisa");
+                return stateList;
+            }
+        };
+
+        System.out.println("Get State List :: " + getStateList.get());
+
+        System.out.println("===============|| Function ||================");
+        Function<Double, Double> sqrtOfNum = new Function<Double, Double>() {
+            @Override
+            public Double apply(Double num) {
+                return Math.sqrt(num);
+            }
+        };
+        System.out.println("Square Root of :: " + sqrtOfNum.apply(5.0));
+        System.out.println("Square Root of :: " + sqrtOfNum.apply(-5.0));
+
+        new Function<Double, Double>() {
+            @Override
+            public Double apply(Double km) {
+                Double mile = km * 0.621371;
+                System.out.println(km  +" is equal to " + mile +" mile");
+                return mile;
+            }
+        }.apply(1.0);
+
+        ((Function<Double, Double>) km -> {
+            Double mile = km * 0.621371;
+            System.out.println(km + " is equal to " + mile + " mile");
+            return mile;
+        }).apply(1.0);
+
+
     }
 }
