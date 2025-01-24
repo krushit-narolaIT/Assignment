@@ -65,21 +65,28 @@ class Product {
 
 public class ProductFunctionalDemo {
     public static void main(String[] args) {
+        //Created list of products
         List<Product> products = new ArrayList<>();
         products.add(new Product(1, "Laptop", 67000.00, 10));
         products.add(new Product(2, "Table", 800.00, 0));
         products.add(new Product(3, "Globe", 1500.00, 20));
         products.add(new Product(4, "TV", 50000.00, 5));
 
+        //check is product available
         Predicate<Product> isAvailable = product -> product.getProductQuantity() > 0;
+
+        //check expensive product
         Predicate<Product> isExpensive = product -> product.getProductPrice() > 49000;
         System.out.println("Available Products:");
+
+        //get available product using predicate
         for(Product product : products){
             if(isAvailable.test(product)){
                 System.out.println(product);
             }
         }
 
+        //get expensive product
         System.out.println("Expensive Product");
         for(Product product : products){
             if(isExpensive.test(product)){
@@ -87,6 +94,7 @@ public class ProductFunctionalDemo {
             }
         }
 
+        // apply discount on expensive product
         Function<Product, Product> applyDiscount = product -> {
             if(isExpensive.test(product)){
                 product.setProductPrice(product.getProductPrice() * 0.5);
@@ -96,14 +104,17 @@ public class ProductFunctionalDemo {
             return product;
         };
 
+        //print discounted products
         System.out.println("\nProducts On Sale:");
         for(Product product : products){
             System.out.println("-> " + applyDiscount.apply(product));
         }
 
+        //display product
         Consumer<Product> displayProduct = product -> System.out.println("Product Details: " + product);
         System.out.println("\nDisplaying Products:");
         products.forEach(displayProduct);
+
 
         Supplier<Product> defaultProductSupplier = () -> new Product(0, "No Products", 0.0, 0);
         if (products.isEmpty()) {
