@@ -1,7 +1,4 @@
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 //import java.time.temporal.ChronoUnit;
 
@@ -25,10 +22,17 @@ public class DateTimeAssignment {
         System.out.println("Formatted Date&Time: " + now.format(formatter));
 
         /*Q3. Find the difference in hours between two time zones (e.g., UTC and Asia/Kolkata).*/
-        LocalDateTime utc = LocalDateTime.now(ZoneId.of("UTC"));
-        LocalDateTime kolkata = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
+        ZoneId utcZone = ZoneId.of("UTC");
+        ZoneId kolkataZone = ZoneId.of("Asia/Kolkata");
 
-//        long hoursDifference = ChronoUnit.HOURS.between(utc, kolkata);
-//        System.out.println("Difference in hours: " + hoursDifference);
+        ZoneOffset utcOffset = ZonedDateTime.now(utcZone).getOffset();
+        ZoneOffset kolkataOffset = ZonedDateTime.now(kolkataZone).getOffset();
+
+        int differenceInSeconds = kolkataOffset.getTotalSeconds() - utcOffset.getTotalSeconds();
+
+        int hours = differenceInSeconds / 3600;
+        int minutes = (differenceInSeconds % 3600) / 60;
+
+        System.out.println("Time difference between UTC and Asia/Kolkata: " + hours + " hours " + minutes + " minutes");
     }
 }

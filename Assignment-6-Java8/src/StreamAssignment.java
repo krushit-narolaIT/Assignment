@@ -1,7 +1,8 @@
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class StreamAssignment {
     public static void main(String[] args) {
@@ -65,19 +66,31 @@ public class StreamAssignment {
 
         /*Q4.Experiment with Parallel Streams Compare the performance of sequential
         vs parallel streams for a CPU-intensive computation (e.g., calculating primes).*/
-        List<Integer> integerList = IntStream.range(1, 9999999).boxed().collect(Collectors.toList());
+        List<Integer> integerList = IntStream.range(1, 999).boxed().collect(Collectors.toList());
         long start = System.currentTimeMillis();
         long isPrimeSequencial = integerList.stream().filter(number -> StreamAssignment.isPrime(number)).count();
         long end = System.currentTimeMillis();
-        System.out.println("Time taken by sequencial stream ::" + (end-start) + " ms");
+        System.out.println("Time taken by sequencial stream ::" + (end - start) + " ms");
 
         start = System.currentTimeMillis();
         long isPrimeParallel = integerList.parallelStream().filter(number -> StreamAssignment.isPrime(number)).count();
         end = System.currentTimeMillis();
-        System.out.println("Time taken by Parallel stream ::" + (end-start) + " ms");
+        System.out.println("Time taken by Parallel stream ::" + (end - start) + " ms");
 
         System.out.println("============================  Q5  =================================");
         /*Q5.Custom Collectors Implement a custom Collector to calculate the product of numbers in a stream.*/
+        int productOfNumberInStream = IntStream.of(1, 2, 3, 4, 5)
+                .boxed()
+                .collect(Collector.of(
+                        () -> new int[]{1},
+                        (a, b) -> a[0] *= b,
+                        (a1, a2) -> {
+                            a1[0] *= a2[0];
+                            return a1;
+                        },
+                        a -> a[0]
+                ));
+        System.out.println("Product: " + productOfNumberInStream);
 
         System.out.println("============================  Q6  =================================");
         /*Q6. flatMap vs map Use flatMap to process nested lists of strings, and compare with map.*/
@@ -101,21 +114,84 @@ public class StreamAssignment {
         System.out.println("============================  Q7  =================================");
         /*Q7. Stream Performance Analyze the performance of spliterator
         and learn tips for efficient parallelization.*/
+        List<Integer> numbersList = IntStream.rangeClosed(1, 999).boxed().toList();
+        Stream<Integer> str1 = numbersList.stream();
 
-        System.out.println("============================  Q8  =================================");
+        long startNow = System.currentTimeMillis();
+        Spliterator<Integer> spliterator1 = str1.spliterator();
+        Spliterator<Integer> spliterator2 = spliterator1.trySplit();
+
+        System.out.println("\nOutput from spliterator1: ");
+        spliterator1.forEachRemaining((n) -> System.out.print(n + " "));
+
+        System.out.println("\nOutput from spliterator: ");
+        spliterator2.forEachRemaining((n) -> System.out.print(n + " "));
+        long endNow = System.currentTimeMillis();
+        System.out.println("\nTime Taken by Splititerator :: " + (endNow - startNow));
+
+        System.out.println("===================");
+        Stream<Integer> str2 = numbersList.stream();
+        startNow = System.currentTimeMillis();
+        Iterator<Integer> iterator = numbersList.iterator();
+        while (iterator.hasNext()) {
+            System.out.print(iterator.next() + " ");
+        }
+        endNow = System.currentTimeMillis();
+        System.out.println("\nTime Taken by Iterator :: " + (endNow - startNow));
+
+        System.out.println("\n============================  Q8  =================================");
         /*Q8. Custom Collector for Aggregation Write a custom collector to
         aggregate employee salaries into a department-wise total.*/
 
+        class Employee {
+            String name;
+            String department;
+            int salary;
 
+            public Employee(String name, String department, int salary) {
+                this.department = department;
+                this.salary = salary;
+            }
 
+            public String getName() {
+                return name;
+            }
+
+            public String getDepartment() {
+                return department;
+            }
+
+            public int getSalary() {
+                return salary;
+            }
+        }
+
+        List<Employee> employees = Arrays.asList(
+                new Employee("Krushit", "JAVA", 15000),
+                new Employee("D.Shah", "HR", 12000),
+                new Employee("Rahul", "PYTHON", 18000),
+                new Employee("Vinay", "JAVA", 15000)
+        );
+
+        Map<String, Integer> departmentSalary = employees.stream()
+                .collect(Collector.of(
+                        HashMap::new,
+                        (map, e) -> map.merge(e.getDepartment(), e.getSalary(), Integer::sum),
+                        (map1, map2) -> {
+                            map2.forEach((k, v) -> map1.merge(k, v, Integer::sum));
+                            return map1;
+                        }
+                ));
+
+        System.out.println(departmentSalary);
 
     }
 
-    public static boolean isPrime(Integer number){
-        if(number<=1) return false;
+    public static boolean isPrime(Integer number) {
+        if (number <= 1) return false;
 
-        for(int i=2;i<Math.sqrt(number);i++){
-            if(number%i==0){
+        for (int i = 2; i < Math.sqrt(number); i++) {
+            if (number % i == 0) {
                 return false;
             }
         }
