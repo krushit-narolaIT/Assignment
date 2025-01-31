@@ -176,7 +176,7 @@ public class StreamAssignment {
         Map<String, Integer> departmentSalary = employees.stream()
                 .collect(Collector.of(
                         HashMap::new,
-                        (map, e) -> map.merge(e.getDepartment(), e.getSalary(), Integer::sum),
+                        (hashMap, employee) -> hashMap.merge(employee.getDepartment(), employee.getSalary(), Integer::sum),
                         (map1, map2) -> {
                             map2.forEach((k, v) -> map1.merge(k, v, Integer::sum));
                             return map1;
