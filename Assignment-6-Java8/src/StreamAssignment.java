@@ -133,7 +133,9 @@ public class StreamAssignment {
         /*Q7. Stream Performance Analyze the performance of spliterator
         and learn tips for efficient parallelization.*/
         //numbers list with 1 to 99999
-        List<Integer> numbersList = IntStream.rangeClosed(1, 999).boxed().toList();
+        List<Integer> numbersList = IntStream.rangeClosed(1, 99999)
+                .boxed()
+                .toList();
 
         //create stream from that list
         Stream<Integer> str1 = numbersList.stream();
@@ -150,7 +152,7 @@ public class StreamAssignment {
         System.out.println("\nOutput from spliterator1: ");
         spliterator1.forEachRemaining((n) -> System.out.print(n + " "));
 
-        System.out.println("\nOutput from spliterator: ");
+        System.out.println("\nOutput from spliterator2: ");
         spliterator2.forEachRemaining((n) -> System.out.print(n + " "));
         long endNow = System.currentTimeMillis();
         System.out.println("\nTime Taken by Splititerator :: " + (endNow - startNow));
@@ -202,14 +204,20 @@ public class StreamAssignment {
         );
 
         //
-        Map<String, Integer> departmentWiseSalary = employees.stream()
+        Map<String, Integer> departmentWiseSalary = employees.parallelStream()
                 .collect(Collector.of(
                         HashMap::new,
-                        (hashMap, employee) -> hashMap.merge(employee.getDepartment(), employee.getSalary(), Integer::sum),
-                        (map1, map2) -> {
+                        (hashMap, employee) -> {
+                            hashMap.merge(employee.getDepartment(), employee.getSalary(), Integer::sum);
+                            System.out.println("HashMap :: " + hashMap);
+                        },
+                        (map1, map2) -> { //for parallel stream
                             map2.forEach((k, v) -> map1.merge(k, v, Integer::sum));
+                            System.out.println("Map1 :: " + map1);
+                            System.out.println("Map2 :: " + map2);
                             return map1;
                         }
+
                 ));
 
         System.out.println(departmentWiseSalary);
@@ -226,5 +234,4 @@ public class StreamAssignment {
         }
         return true;
     }
-
 }
