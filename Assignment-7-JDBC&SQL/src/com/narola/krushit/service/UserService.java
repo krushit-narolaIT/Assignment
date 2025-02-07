@@ -1,6 +1,6 @@
 package com.narola.krushit.service;
 
-import com.narola.krushit.dao.UserDAOImpl;
+import com.narola.krushit.dao.UserDAO;
 import com.narola.krushit.entity.User;
 
 import java.util.Optional;
@@ -34,7 +34,7 @@ public class UserService {
             user.setUserEmail(userEmail);
             user.setUserPhone(userPhone);
 
-            UserDAOImpl userDAO = new UserDAOImpl();
+            UserDAO userDAO = new UserDAO();
             boolean isRegistered = userDAO.registerUser(user);
 
             if (isRegistered) {
@@ -63,7 +63,7 @@ public class UserService {
             System.out.println("Enter Password: ");
             String userPass = scanner.nextLine();
 
-            UserDAOImpl userDAO = new UserDAOImpl();
+            UserDAO userDAO = new UserDAO();
             Optional<User> opt = userDAO.loginUser(userEmail, userPass);
 
             if (opt.isPresent()) {
@@ -89,7 +89,7 @@ public class UserService {
             System.out.println("Enter Password: ");
             String userPass = scanner.nextLine();
 
-            UserDAOImpl userDAO = new UserDAOImpl();
+            UserDAO userDAO = new UserDAO();
             boolean flag = userDAO.deleteUser(userEmail, userPass);
 
             if (flag) {
@@ -114,7 +114,7 @@ public class UserService {
             System.out.println("Enter Password: ");
             String userPass = scanner.nextLine();
 
-            UserDAOImpl userDAO = new UserDAOImpl();
+            UserDAO userDAO = new UserDAO();
             Optional<User> opt = userDAO.loginUser(userEmail, userPass);
 
             if (opt.isPresent()) {

@@ -6,14 +6,12 @@ import com.narola.krushit.utils.DBConnection;
 import java.sql.*;
 import java.util.Optional;
 
-public class UserDAOImpl implements IUserDAO {
-
+public class UserDAO {
     private final String INSERT_USER_DATA = "INSERT INTO users (user_email, pass, user_first_name, user_last_name, user_phone) VALUES (?, ?, ?, ?, ?)";
     private final String DELETE_USER_DATA_BY_EMAIL = "DELETE FROM users WHERE user_email = ?";
     private final String LOGIN_USER = "SELECT * FROM users WHERE user_email = ? AND pass = ?";
     private final String UPDATE_PHONE_NUMBER = "UPDATE users SET user_phone = ? WHERE user_email = ? ";
 
-    @Override
     public boolean registerUser(User user) {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt3 = conn.prepareStatement(INSERT_USER_DATA)) {
