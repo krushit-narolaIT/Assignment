@@ -31,7 +31,7 @@ public class UserDAO {
 
             return stmt.executeUpdate() == 1;
         } catch (SQLException e) {
-            System.err.println("⚠ Error: Registration failed.");
+            System.err.println("Oops..!!, Some Internal Error Occur.");
             return false;
         }
     }
@@ -56,7 +56,7 @@ public class UserDAO {
                 return Optional.of(user);
             }
         } catch (SQLException e) {
-            System.err.println("⚠ Error: Login query failed.");
+            System.err.println("Oops..!!, Some Internal Error Occur.");
         }
         return Optional.empty();
     }
@@ -70,7 +70,7 @@ public class UserDAO {
 
             return stmt.executeUpdate() == 1;
         } catch (SQLException e) {
-            System.err.println("⚠ Error: Failed to delete user.");
+            System.err.println("Oops..!!, Some Internal Error Occur.");
             return false;
         }
     }
@@ -84,7 +84,7 @@ public class UserDAO {
 
             return stmt.executeUpdate() == 1;
         } catch (SQLException e) {
-            System.err.println("⚠ Error: Failed to update phone number.");
+            System.err.println("Oops..!!, Some Internal Error Occur.");
             return false;
         }
     }

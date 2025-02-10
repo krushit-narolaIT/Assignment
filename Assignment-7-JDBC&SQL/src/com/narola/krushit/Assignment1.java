@@ -29,28 +29,13 @@ public class Assignment1 {
                 scanner.nextLine();
 
                 switch (choice) {
-                    case 1 -> {
-                        System.out.println("User registration selected.");
-                        userService.registerUser();
-                    }
-
-                    case 2 -> {
-                        System.out.println("User login selected.");
-                        userService.login();
-                    }
-
-                    case 3 -> {
-                        System.out.println("Delete user permanently.");
-                        userService.deleteUser();
-                    }
-
-                    case 4 -> {
-                        System.out.println("Update Phone Number.");
-                        userService.updateUser();
-                    }
-
+                    case 1 -> userService.registerUser();
+                    case 2 -> userService.login();
+                    case 3 -> userService.deleteUser();
+                    case 4 -> userService.updateUser();
                     case 5 -> {
                         System.out.println("Exiting...");
+                        Thread.sleep(1000);
                         return;
                     }
                     default -> System.out.println("Invalid choice. Please enter a number between 1 and 5.");

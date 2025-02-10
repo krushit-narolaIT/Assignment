@@ -11,6 +11,7 @@ public class UserService {
 
     public void registerUser() {
         try {
+            System.out.println("User registration");
             System.out.print("Enter User First Name: ");
             String userFirstName = scanner.nextLine().trim();
 
@@ -29,17 +30,18 @@ public class UserService {
             User user = new User(userEmail, userPass, userFirstName, userLastName, userPhone);
 
             if (userDAO.registerUser(user)) {
-                System.out.println("\n✅ User Registered Successfully!");
+                System.out.println("User Registered Successfully!");
             } else {
-                System.out.println("\nRegistration Failed. Try Again.");
+                System.out.println("Registration Failed. Try Again.");
             }
         } catch (Exception e) {
-            System.out.println("⚠ Error: Unable to register user.");
+            System.out.println("Error occur");
         }
     }
 
     public void login() {
         try {
+            System.out.println("User login");
             System.out.print("Enter Email: ");
             String userEmail = scanner.nextLine().trim();
 
@@ -50,16 +52,17 @@ public class UserService {
 
             if (opt.isPresent()) {
                 User user = opt.get();
-                System.out.println("\n✅ Welcome, " + user.getUserFirstName() + " " + user.getUserLastName() + "!");
+                System.out.println("Welcome, " + user.getUserFirstName() + " " + user.getUserLastName() + "..!");
             } else {
-                System.out.println("\nInvalid Credentials. Please Try Again.");
+                System.out.println("Invalid Credentials. Please Try Again.");
             }
         } catch (Exception e) {
-            System.out.println("⚠ Error: Unable to log in.");
+            System.out.println("Error occur while log in.");
         }
     }
 
     public void deleteUser() {
+        System.out.println("Delete user");
         try {
             System.out.print("Enter Email: ");
             String userEmail = scanner.nextLine().trim();
@@ -68,16 +71,17 @@ public class UserService {
             String userPass = scanner.nextLine();
 
             if (userDAO.deleteUser(userEmail, userPass)) {
-                System.out.println("\nUser deleted successfully.");
+                System.out.println("User deleted successfully.");
             } else {
-                System.out.println("\nInvalid credentials or user does not exist.");
+                System.out.println("Invalid credentials or user does not exist.");
             }
         } catch (Exception e) {
-            System.out.println("⚠ Error: Unable to delete user.");
+            System.out.println("Error occur while updating t user.");
         }
     }
 
     public void updateUser() {
+        System.out.println("Update Phone Number.");
         try {
             System.out.print("Enter Email: ");
             String userEmail = scanner.nextLine().trim();
@@ -92,15 +96,15 @@ public class UserService {
                 String newPhone = scanner.nextLine().trim();
 
                 if (userDAO.updatePhone(userEmail, newPhone)) {
-                    System.out.println("\nPhone number updated successfully.");
+                    System.out.println("Phone number updated successfully.");
                 } else {
-                    System.out.println("\nFailed to update phone number.");
+                    System.out.println("Error occur while updating phone number.");
                 }
             } else {
-                System.out.println("\nInvalid Credentials. Please Try Again.");
+                System.out.println("Invalid Credentials. Please Try Again.");
             }
         } catch (Exception e) {
-            System.out.println("⚠ Error: Unable to update user.");
+            System.out.println("Error occur while updating user.");
         }
     }
 }
