@@ -2,141 +2,105 @@ package com.narola.krushit.service;
 
 import com.narola.krushit.dao.UserDAO;
 import com.narola.krushit.entity.User;
-
 import java.util.Optional;
 import java.util.Scanner;
 
 public class UserService {
+    private final Scanner scanner = new Scanner(System.in);
+    private final UserDAO userDAO = new UserDAO();
 
     public void registerUser() {
-        Scanner scanner = new Scanner(System.in);
         try {
+            System.out.print("Enter User First Name: ");
+            String userFirstName = scanner.nextLine().trim();
 
-            System.out.println("Enter User First Name: ");
-            String userFirstName = scanner.nextLine();
+            System.out.print("Enter User Last Name: ");
+            String userLastName = scanner.nextLine().trim();
 
-            System.out.println("Enter User Last Name: ");
-            String userLastName = scanner.nextLine();
+            System.out.print("Enter User Email: ");
+            String userEmail = scanner.nextLine().trim();
 
-            System.out.println("Enter User Password: ");
+            System.out.print("Enter User Password: ");
             String userPass = scanner.nextLine();
 
-            System.out.println("Enter User Email: ");
-            String userEmail = scanner.nextLine();
+            System.out.print("Enter User Phone: ");
+            String userPhone = scanner.nextLine().trim();
 
-            System.out.println("Enter User Phone: ");
-            String userPhone = scanner.nextLine();
+            User user = new User(userEmail, userPass, userFirstName, userLastName, userPhone);
 
-            User user = new User();
-            user.setPass(userPass);
-            user.setUserFirstName(userFirstName);
-            user.setUserLastName(userLastName);
-            user.setUserEmail(userEmail);
-            user.setUserPhone(userPhone);
-
-            UserDAO userDAO = new UserDAO();
-            boolean isRegistered = userDAO.registerUser(user);
-
-            if (isRegistered) {
-                System.out.println("**************************************");
-                System.out.println("*  User Registered Successfully...!!! ");
-                System.out.println("**************************************");
+            if (userDAO.registerUser(user)) {
+                System.out.println("\n✅ User Registered Successfully!");
             } else {
-                System.out.println("**************************************");
-                System.out.println("*     Oops..!!, Some error occur     *");
-                System.out.println("**************************************");
+                System.out.println("\nRegistration Failed. Try Again.");
             }
         } catch (Exception e) {
-            System.out.println("Error occurred while registering the user..!!");
-            e.printStackTrace();
-        } finally {
-            scanner.close();
+            System.out.println("⚠ Error: Unable to register user.");
         }
     }
 
     public void login() {
-        Scanner scanner = new Scanner(System.in);
         try {
-            System.out.println("Enter Email: ");
-            String userEmail = scanner.nextLine();
+            System.out.print("Enter Email: ");
+            String userEmail = scanner.nextLine().trim();
 
-            System.out.println("Enter Password: ");
+            System.out.print("Enter Password: ");
             String userPass = scanner.nextLine();
 
-            UserDAO userDAO = new UserDAO();
             Optional<User> opt = userDAO.loginUser(userEmail, userPass);
 
             if (opt.isPresent()) {
                 User user = opt.get();
-                System.out.println("*  Welcome " + user.getUserFirstName() + " " + user.getUserLastName() + " *");
+                System.out.println("\n✅ Welcome, " + user.getUserFirstName() + " " + user.getUserLastName() + "!");
             } else {
-                System.out.println("*     Invalid Credentials Please Try Again     *");
+                System.out.println("\nInvalid Credentials. Please Try Again.");
             }
         } catch (Exception e) {
-            System.out.println("Error occurred while registering the user..!!");
-            e.printStackTrace();
-        } finally {
-            scanner.close();
+            System.out.println("⚠ Error: Unable to log in.");
         }
     }
 
     public void deleteUser() {
-        Scanner scanner = new Scanner(System.in);
         try {
-            System.out.println("Enter Email: ");
-            String userEmail = scanner.nextLine();
+            System.out.print("Enter Email: ");
+            String userEmail = scanner.nextLine().trim();
 
-            System.out.println("Enter Password: ");
+            System.out.print("Enter Password: ");
             String userPass = scanner.nextLine();
 
-            UserDAO userDAO = new UserDAO();
-            boolean flag = userDAO.deleteUser(userEmail, userPass);
-
-            if (flag) {
-                System.out.println("*  User " + userEmail + " deleted Successfully *");
+            if (userDAO.deleteUser(userEmail, userPass)) {
+                System.out.println("\nUser deleted successfully.");
             } else {
-                System.out.println("*     Invalid Credentials Please Try Again     *");
+                System.out.println("\nInvalid credentials or user does not exist.");
             }
         } catch (Exception e) {
-            System.out.println("Error occurred while registering the user..!!");
-            e.printStackTrace();
-        } finally {
-            scanner.close();
+            System.out.println("⚠ Error: Unable to delete user.");
         }
     }
 
     public void updateUser() {
-        Scanner scanner = new Scanner(System.in);
         try {
-            System.out.println("Enter Email: ");
-            String userEmail = scanner.nextLine();
+            System.out.print("Enter Email: ");
+            String userEmail = scanner.nextLine().trim();
 
-            System.out.println("Enter Password: ");
+            System.out.print("Enter Password: ");
             String userPass = scanner.nextLine();
 
-            UserDAO userDAO = new UserDAO();
             Optional<User> opt = userDAO.loginUser(userEmail, userPass);
 
             if (opt.isPresent()) {
-                User user = opt.get();
-                System.out.println("*  Welcome " + user.getUserFirstName() + " " + user.getUserLastName() + " *");
-                System.out.println("Enter New Phone Number");
-                String userPhone = scanner.nextLine();
-                boolean flag = userDAO.updatePhone(user.getUserEmail(),userPhone);
-                if(flag){
-                    System.out.println("Phone number updated successfully");
+                System.out.print("Enter New Phone Number: ");
+                String newPhone = scanner.nextLine().trim();
+
+                if (userDAO.updatePhone(userEmail, newPhone)) {
+                    System.out.println("\nPhone number updated successfully.");
                 } else {
-                    System.out.println("User not exist..");
+                    System.out.println("\nFailed to update phone number.");
                 }
             } else {
-                System.out.println("*     Invalid Credentials Please Try Again     *");
+                System.out.println("\nInvalid Credentials. Please Try Again.");
             }
         } catch (Exception e) {
-            System.out.println("Error occurred while registering the user..!!");
-            e.printStackTrace();
-        } finally {
-            scanner.close();
+            System.out.println("⚠ Error: Unable to update user.");
         }
     }
 }
-

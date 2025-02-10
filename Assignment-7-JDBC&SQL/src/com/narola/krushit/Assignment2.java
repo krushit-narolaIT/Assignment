@@ -13,10 +13,9 @@ public class Assignment2 {
 
         try (Connection conn = DBConnection.getConnection();
              Statement st1 = conn.createStatement();) {
-
             String query1 = "INSERT INTO users VALUES ('abc@gmail.com', '123', 'abc', 'cde', '789654123')";
             String query2 = "INSERT INTO users VALUES ('bcd@gmail.com', '123', 'abc', 'cde', '789654123')";
-            //it is not added because email id column is unique so all batch operations are rollback
+            // it is not added because email id column is unique so all batch operations are rollback
             String query3 = "INSERT INTO users VALUES ('abc@gmail.com', '123', 'abc', 'cde', '789654123')";
 
             st1.executeQuery(query1);

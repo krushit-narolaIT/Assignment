@@ -7,6 +7,7 @@ public class Assignment1 {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        UserService userService = new UserService();
 
         try {
             while (true) {
@@ -15,46 +16,44 @@ public class Assignment1 {
                 System.out.println("2. Login as User");
                 System.out.println("3. Delete user");
                 System.out.println("4. Update Phone Number");
+                System.out.println("5. Exit");
                 System.out.print("Enter your choice: ");
 
-//                if (!scanner.hasNextLine()) {
-//                    System.out.println("No input found. Exiting...");
-//                    break;
-//                }
-                scanner.nextLine();
-                String input = scanner.nextLine();
-
-                if (!input.matches("\\d+")) {
+                if (!scanner.hasNextInt()) {
                     System.out.println("Invalid input. Please enter a valid number.");
+                    scanner.next();
                     continue;
                 }
 
-                int choice = Integer.parseInt(input);
-                UserService userService = new UserService();
+                int choice = scanner.nextInt();
+                scanner.nextLine();
 
                 switch (choice) {
-                    case 1:
+                    case 1 -> {
                         System.out.println("User registration selected.");
                         userService.registerUser();
-                        break;
+                    }
 
-                    case 2:
+                    case 2 -> {
                         System.out.println("User login selected.");
                         userService.login();
-                        break;
+                    }
 
-                    case 3:
-                        System.out.println("Delete user permanently");
+                    case 3 -> {
+                        System.out.println("Delete user permanently.");
                         userService.deleteUser();
-                        return;
+                    }
 
-                    case 4:
-                        System.out.println("Exiting MyRide Service. Thank you!");
+                    case 4 -> {
+                        System.out.println("Update Phone Number.");
                         userService.updateUser();
-                        return;
+                    }
 
-                    default:
-                        System.out.println("Invalid choice. Please enter a number between 1 and 3.");
+                    case 5 -> {
+                        System.out.println("Exiting...");
+                        return;
+                    }
+                    default -> System.out.println("Invalid choice. Please enter a number between 1 and 5.");
                 }
             }
         } catch (Exception e) {
